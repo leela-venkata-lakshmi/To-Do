@@ -1,0 +1,95 @@
+#taskInput{
+    width:500px;
+}
+.icon-btn{
+    border: none;
+    /* background-color: white; */
+    /* margin:0;
+    padding:0; */
+}
+
+.task{
+    width:900px;
+}
+.sub-task{
+    width:800px;
+    
+}
+.dragging {
+    opacity: 0.5; 
+    border: 2px dashed #000; 
+    background-color: #f0f0f0; 
+  }
+
+  .remindeInput,.subRemindeInput{
+    width:90px;
+
+  }
+  p{
+    font-weight: bold;
+    font-size: 40px;
+    
+  }
+
+@media (max-width:480px) {
+
+    #taskInput{
+        width:200px;
+    }.task{
+        width:300px;
+    }
+    .sub-task{
+        width:250px;
+       
+    }
+    .sub-task div{
+       
+        padding:2px;
+        margin:5px;
+    }
+    .task div{
+        margin-bottom: 5px;
+    }
+    .task{
+        flex-direction: column;
+    }
+    .subTaskInput{
+        width:400px;
+    }
+    #searchInput{
+        width:230px;
+      }
+      p{
+        font-size:x-large;
+        
+      }
+      .startTime{
+        margin-bottom: 8px;
+        padding:5px;
+      }
+      .endTime{
+        padding: 5px;
+      }
+      .remindeInput{
+        width:250px;
+      }
+      .subRemindeInput{
+        width:150px;
+      }
+}
+
+@media (min-width:760px) and (max-width:990px)
+{
+    #taskInput{
+        width:300px;
+    }
+    .task{
+        width:600px;
+    }
+    .sub-task{
+        width:550px;
+    }
+} 
+
+
+
