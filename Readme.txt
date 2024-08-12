@@ -23,6 +23,6 @@ Subtasks can be hidden and can be viewed.
 
 
 Unsuccessful features:
-Editing the subtask.
+
 I should be able to drag and drop tasks subtasks across the list
 Extend search functionality to subtasks as well. My search query should fetch results matching subtasks as well now.
