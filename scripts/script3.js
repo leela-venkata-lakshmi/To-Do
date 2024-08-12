@@ -291,7 +291,7 @@ function enterSubTask(taskId) {
     
 
     localStorage.setItem("data", JSON.stringify(taskData));
-    updateTodoList(); // Re-render the list to include sub-tasks
+    updateTodoList(); 
 }
 
 
@@ -304,7 +304,7 @@ function deleteSubTask(taskId, subTaskId) {
     if (taskIndex !== -1) {
         taskData[taskIndex].subTasks = taskData[taskIndex].subTasks.filter(subTask => subTask.id !== subTaskId);
         localStorage.setItem("data", JSON.stringify(taskData));
-        updateTodoList(); // Re-render the list to remove the deleted sub-task
+        updateTodoList();
     }
 }
 
@@ -381,17 +381,26 @@ function updateSubTaskEndTime(inputEl, taskId, subTaskId) {
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.toLowerCase();
     const filteredTasks = taskData.filter(task => task.taskInfo.toLowerCase().includes(query));
+    console.log(taskData)
+    taskData.forEach((task,index)=>{
+        const subs=task.subTasks
+        if(subs)
+        {
+        // console.log(subs);
+        subs.forEach((sub,index )=>
+        {
+            if(sub.text.toLowerCase().includes(query)){
+            filteredTasks.push(task);
+            // console.log("hi");
+            }
+        })
+    }
+    }
        
+    )
+    
         
-    // filteredTasks.append(taskData.filter(task => {
-    //     if(task.subTasks)
-    //     {
-    //         if(task.subTasks.text)
-    //         {
-    //             task.subTasks.text.toLowerCase().includes(query)  
-    //         }
-    //     }
-    // } ))
+    
     updateTodoList(filteredTasks);   
 });
 
