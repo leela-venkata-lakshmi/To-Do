@@ -225,6 +225,10 @@ const updateTodoList = (tasks = taskData) => {
                         <input type="number" class="subRemindeInput  m-0 p-2 rounded border" id="reminderTime_${subTask.id}" min="1" placeholder="Seconds" value="${subTask.reminderTime || ''}">
                         <button  class="rounded btn bg-secondary text-white m-0" onclick="setSubTaskReminder(${id}, ${subTask.id})"><i class="bi bi-bell "></i></button>
                     </div>
+                        <div class="d-flex m-4 align-items-center justify-content-center" id="${subTask.id}_subInputDiv">
+                            <input type="text" class="form-control hidden  w-25 subTaskInput" id="subTaskInput_${subTask.id}" placeholder="Modify sub task">
+                            <button class="btn btn-primary hidden"  id="editEnterBtn_${subTask.id}" onclick="enterEditSubTask(${id},${subTask.id})">Enter</button>
+                        </div>
                 </div>
                 
             </div>
@@ -306,7 +310,32 @@ function deleteSubTask(taskId, subTaskId) {
 
 function editSubTask(taskId, subTaskId)
 {
- subTask();   
+
+    
+    const subTaskInput=document.getElementById(`subTaskInput_${subTaskId}`);
+    const subEnterBtn=document.getElementById(`editEnterBtn_${subTaskId}`);
+    
+    subEnterBtn.classList.remove("hidden");
+    subTaskInput.classList.remove("hidden");  
+  
+}
+function enterEditSubTask(taskId, subTaskId)
+{
+    const taskIndex = taskData.findIndex(item => item.id === parseInt(taskId, 10));
+    const subTaskInput=document.getElementById(`subTaskInput_${subTaskId}`);
+    
+    const subTaskText = subTaskInput.value.trim();
+    console.log(subTaskText);
+    if (taskIndex !== -1) {
+        const subTaskIndex= taskData[taskIndex].subTasks.findIndex(subTask => subTask.id === parseInt(subTaskId,10));
+        if(subTaskIndex !==-1)
+        {
+            taskData[taskIndex].subTasks[subTaskIndex].text=subTaskText;
+        localStorage.setItem("data", JSON.stringify(taskData));
+         // Re-render the list to remove the deleted sub-task
+        }
+        updateTodoList(taskData);
+    }
 }
 
 
@@ -482,33 +511,7 @@ function setReminder() {
     }
 }
 
-if ("Notification" in window)
-    {
 
-        if(Notification.permission === 'granted')
-        {
-            // notify();
-     
-            
-        }else{
-            Notification.requestPermission().then((res) => {
-                if (res === 'granted')
-                {
-                    // notify();
-                    // const reminderTime = document.getElementById('reminderTime').value;
-                    // scheduleNotification(parseInt(reminderTime.value) * 1000);
-                }else if(res === 'denied')
-                {
-                    console.log("Notification access denied");
-                }else if(res==='default')
-                {
-                    console.log("Notification permission not given");
-                }
-            })
-        }
-    }else{
-        console.error("Notification not supported");
-    }
     
     function scheduleNotification(delay) {
         setTimeout(() => {
